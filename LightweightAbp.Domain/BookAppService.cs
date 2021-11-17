@@ -9,11 +9,13 @@ using Volo.Abp.Domain.Repositories;
 
 namespace LightweightAbp
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class BookAppService : ApplicationService, IBookAppService
     {
         private readonly IRepository<Book, Guid> _repository;
-        private readonly IDistributedCache<string[]> _cache;
-
+        private readonly IDistributedCache<string[]> _cache; 
         public BookAppService(
             IRepository<Book, Guid> repository,
             IDistributedCache<string[]> cache)

@@ -11,17 +11,14 @@ using Volo.Abp.Domain;
 using Volo.Abp.EntityFrameworkCore.Sqlite;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.Application;
-using Volo.Abp.Caching;
+using Volo.Abp.Caching; 
 
 namespace LightweightAbp
 {
     [DependsOn(
-        typeof(AbpAutofacModule),
         typeof(AbpAspNetCoreMvcModule),
-        typeof(AbpDddApplicationModule),
-        typeof(AbpDddDomainModule),
-        typeof(AbpEntityFrameworkCoreSqliteModule),
-        typeof(AbpCachingModule))]
+        typeof(LightweightAbpCoreModule))
+        ]
     public class LightweightAbpModule : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
@@ -32,15 +29,7 @@ namespace LightweightAbp
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "LightweightAbp", Version = "v1" });
             });
 
-            context.Services.AddAbpDbContext<LightweightAbpDbContext>(options =>
-            {
-                options.AddDefaultRepositories(includeAllEntities: true);
-            });
-
-            Configure<AbpDbContextOptions>(options =>
-            {
-                options.UseSqlite();
-            });
+        
         }
 
         public override void OnApplicationInitialization(ApplicationInitializationContext context)
